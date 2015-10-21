@@ -1,20 +1,89 @@
+
+import java.io.File;
+import javax.swing.JOptionPane;
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author George
  */
 public class startForm extends javax.swing.JFrame {
 
+    private startFormView_Model startFormView_Model;
+    private String path = "";
+    private File file;
+
     /**
      * Creates new form startForm
      */
     public startForm() {
         initComponents();
+        startFormView_Model = new startFormView_Model();
+
+    }
+    /*
+    VARIABLE SET GET
+    */
+    public void setFile() {
+        file = new File(getPath());
+    }
+    public File getFile() {
+            return file;
+    }
+    public void setPath(String setPath) {
+        path = setPath;
+    }
+
+    public String getPath() {
+        return path;
+    }
+    //convertion
+    public int convert() {
+        //starts
+        startConvertView();
+        setPath("");
+        //type selection check
+        if (file_type.isSelected()) {
+            if (file_path.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "<ERROR>You must select a file !!!");
+                return 1;
+            }
+            setPath(file_path.getText());
+        } else {
+            if (folder_path.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "<ERROR>You must select a folder !!!");
+                return 2;
+            }
+            setPath(folder_path.getText());
+        }
+        
+        //ends
+        endConvertView();
+        return 0;
+    }
+    // View when convertion starts
+    public void startConvertView() {
+        //start
+        startFormView_Model.NonSelectedConvertionType(folder_path, select_folder_button);
+        startFormView_Model.NonSelectedConvertionType(file_path, select_file_button);
+        file_type.setSelected(false);
+        file_type.setEnabled(false);
+        folder_type.setSelected(false);
+        folder_type.setEnabled(false);
+    }
+    //View when we convertion ends
+    public void endConvertView() {
+        //ends
+        file_type.setEnabled(true);
+        folder_type.setEnabled(true);
+        folder_type.setSelected(true);
+        file_type.setSelected(true);
     }
 
     /**
@@ -26,21 +95,167 @@ public class startForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        convertion_type_group = new javax.swing.ButtonGroup();
+        start_button = new javax.swing.JButton();
+        folder_path = new javax.swing.JTextField();
+        select_folder_button = new javax.swing.JButton();
+        select_file_button = new javax.swing.JButton();
+        file_path = new javax.swing.JTextField();
+        file_type = new javax.swing.JRadioButton();
+        folder_type = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        error_label = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        start_button.setText("Start Converting");
+        start_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                start_buttonActionPerformed(evt);
+            }
+        });
+
+        folder_path.setEditable(false);
+        folder_path.setEnabled(false);
+
+        select_folder_button.setText("Select Folder");
+        select_folder_button.setEnabled(false);
+        select_folder_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                select_folder_buttonActionPerformed(evt);
+            }
+        });
+
+        select_file_button.setText("Select File");
+        select_file_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                select_file_buttonActionPerformed(evt);
+            }
+        });
+
+        file_path.setEditable(false);
+
+        convertion_type_group.add(file_type);
+        file_type.setSelected(true);
+        file_type.setText("File Select");
+        file_type.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                file_typeItemStateChanged(evt);
+            }
+        });
+        file_type.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                file_typeStateChanged(evt);
+            }
+        });
+
+        convertion_type_group.add(folder_type);
+        folder_type.setText("Folder Select");
+        folder_type.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                folder_typeItemStateChanged(evt);
+            }
+        });
+        folder_type.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                folder_typeStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Convertion Type");
+
+        error_label.setForeground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(error_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(start_button)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(select_folder_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                .addComponent(select_file_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(14, 14, 14)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(folder_path, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                                .addComponent(file_path)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(file_type)
+                            .addGap(18, 18, 18)
+                            .addComponent(folder_type))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(file_type)
+                    .addComponent(folder_type)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(select_folder_button)
+                    .addComponent(folder_path, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(select_file_button)
+                    .addComponent(file_path, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(start_button)
+                .addGap(26, 26, 26)
+                .addComponent(error_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void file_typeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_file_typeStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_file_typeStateChanged
+
+    private void folder_typeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_folder_typeStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_folder_typeStateChanged
+
+    private void file_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_file_typeItemStateChanged
+        // TODO add your handling code here:
+        startFormView_Model.NonSelectedConvertionType(folder_path, select_folder_button);
+        startFormView_Model.SelectedConvertionType(file_path, select_file_button);
+    }//GEN-LAST:event_file_typeItemStateChanged
+
+    private void folder_typeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_folder_typeItemStateChanged
+        // TODO add your handling code here:
+        startFormView_Model.NonSelectedConvertionType(file_path, select_file_button);
+        startFormView_Model.SelectedConvertionType(folder_path, select_folder_button);
+    }//GEN-LAST:event_folder_typeItemStateChanged
+
+    private void select_folder_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_folder_buttonActionPerformed
+        // TODO add your handling code here:
+        folder_path.setText(startFormView_Model.selectionFolderPath());
+    }//GEN-LAST:event_select_folder_buttonActionPerformed
+
+    private void select_file_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_file_buttonActionPerformed
+        // TODO add your handling code here:
+        file_path.setText(startFormView_Model.selectionFilePath());
+    }//GEN-LAST:event_select_file_buttonActionPerformed
+
+    private void start_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_start_buttonActionPerformed
+        // TODO add your handling code here:
+        convert();
+    }//GEN-LAST:event_start_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +293,15 @@ public class startForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup convertion_type_group;
+    private javax.swing.JLabel error_label;
+    private javax.swing.JTextField file_path;
+    private javax.swing.JRadioButton file_type;
+    private javax.swing.JTextField folder_path;
+    private javax.swing.JRadioButton folder_type;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton select_file_button;
+    private javax.swing.JButton select_folder_button;
+    private javax.swing.JButton start_button;
     // End of variables declaration//GEN-END:variables
 }
