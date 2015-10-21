@@ -1,8 +1,11 @@
+package View;
 
+
+import Model.startFormView_Model;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
-
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +20,7 @@ public class startForm extends javax.swing.JFrame {
 
     private startFormView_Model startFormView_Model;
     private String path = "";
-    private File file;
+    private File file[];
 
     /**
      * Creates new form startForm
@@ -25,17 +28,34 @@ public class startForm extends javax.swing.JFrame {
     public startForm() {
         initComponents();
         startFormView_Model = new startFormView_Model();
+    }
+
+    /*
+     VARIABLE SET GET
+     */
+    public void setFile() {
+        if (!new File(getPath()).exists()) {
+            JOptionPane.showMessageDialog(null, "Path doesnt exists");
+            this.dispose();
+        } else if (new File(getPath()).isFile()) {
+            file = new File[1];
+            file[0] = new File(getPath());
+        } else if (new File(getPath()).listFiles().length == 0) {
+            JOptionPane.showMessageDialog(null, "No files into this directory");
+            this.dispose();
+        } else {
+            file = new File(getPath()).listFiles();
+        }
 
     }
-    /*
-    VARIABLE SET GET
-    */
-    public void setFile() {
-        file = new File(getPath());
+
+    public File[] getFile() {
+        if (file == null) {
+            setFile();
+        }
+        return file;
     }
-    public File getFile() {
-            return file;
-    }
+
     public void setPath(String setPath) {
         path = setPath;
     }
@@ -43,7 +63,9 @@ public class startForm extends javax.swing.JFrame {
     public String getPath() {
         return path;
     }
+
     //convertion
+
     public int convert() {
         //starts
         startConvertView();
@@ -62,12 +84,21 @@ public class startForm extends javax.swing.JFrame {
             }
             setPath(folder_path.getText());
         }
-        
+        //file set initialize
+        setFile();
+        try {
+            startFormView_Model.fixIt(getFile());
+        } catch (Exception e) {
+
+        }
+
         //ends
         endConvertView();
         return 0;
     }
+
     // View when convertion starts
+
     public void startConvertView() {
         //start
         startFormView_Model.NonSelectedConvertionType(folder_path, select_folder_button);
@@ -76,8 +107,11 @@ public class startForm extends javax.swing.JFrame {
         file_type.setEnabled(false);
         folder_type.setSelected(false);
         folder_type.setEnabled(false);
+        file = null;
     }
+
     //View when we convertion ends
+
     public void endConvertView() {
         //ends
         file_type.setEnabled(true);
