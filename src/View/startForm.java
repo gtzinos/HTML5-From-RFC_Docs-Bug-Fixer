@@ -1,6 +1,5 @@
 package View;
 
-
 import Model.startFormView_Model;
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,7 +64,6 @@ public class startForm extends javax.swing.JFrame {
     }
 
     //convertion
-
     public int convert() {
         //starts
         startConvertView();
@@ -91,6 +89,12 @@ public class startForm extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
+        /*
+         BETA MODE
+        */
+        if (one_file_checkbox.isSelected()) {
+            startFormView_Model.unionFiles(getFile());
+        }
 
         //ends
         endConvertView();
@@ -98,7 +102,6 @@ public class startForm extends javax.swing.JFrame {
     }
 
     // View when convertion starts
-
     public void startConvertView() {
         //start
         startFormView_Model.NonSelectedConvertionType(folder_path, select_folder_button);
@@ -107,17 +110,18 @@ public class startForm extends javax.swing.JFrame {
         file_type.setEnabled(false);
         folder_type.setSelected(false);
         folder_type.setEnabled(false);
+        one_file_checkbox.setEnabled(false);
         file = null;
     }
 
     //View when we convertion ends
-
     public void endConvertView() {
         //ends
         file_type.setEnabled(true);
         folder_type.setEnabled(true);
         folder_type.setSelected(true);
         file_type.setSelected(true);
+        one_file_checkbox.setEnabled(true);
     }
 
     /**
@@ -139,6 +143,8 @@ public class startForm extends javax.swing.JFrame {
         folder_type = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         error_label = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        one_file_checkbox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -201,37 +207,48 @@ public class startForm extends javax.swing.JFrame {
 
         error_label.setForeground(new java.awt.Color(255, 51, 51));
 
+        jLabel2.setText("Results in 1 file(Beta)");
+
+        one_file_checkbox.setText("Yes");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(error_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(start_button)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(select_folder_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                                .addComponent(select_file_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(14, 14, 14)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(folder_path, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                                .addComponent(file_path)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(file_type)
-                            .addGap(18, 18, 18)
-                            .addComponent(folder_type))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(error_label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(start_button)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(select_folder_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                        .addComponent(select_file_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(folder_path, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                                        .addComponent(file_path)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(file_type)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(folder_type)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addComponent(one_file_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(file_type)
                     .addComponent(folder_type)
@@ -245,8 +262,12 @@ public class startForm extends javax.swing.JFrame {
                     .addComponent(select_file_button)
                     .addComponent(file_path, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(one_file_checkbox))
+                .addGap(17, 17, 17)
                 .addComponent(start_button)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(error_label, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -334,6 +355,8 @@ public class startForm extends javax.swing.JFrame {
     private javax.swing.JTextField folder_path;
     private javax.swing.JRadioButton folder_type;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JCheckBox one_file_checkbox;
     private javax.swing.JButton select_file_button;
     private javax.swing.JButton select_folder_button;
     private javax.swing.JButton start_button;
