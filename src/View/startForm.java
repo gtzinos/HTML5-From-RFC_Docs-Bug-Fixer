@@ -1,9 +1,7 @@
 package View;
 
 import Model.startFormView_Model;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import javax.swing.JOptionPane;
 
 /*
@@ -17,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class startForm extends javax.swing.JFrame {
 
-    private startFormView_Model startFormView_Model;
+    private final startFormView_Model startFormView_Model;
     private String path = "";
     private File file[];
 
@@ -240,8 +238,8 @@ public class startForm extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(folder_type)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(one_file_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18))
         );
